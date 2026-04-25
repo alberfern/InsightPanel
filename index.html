@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insight Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Panel de Evaluación</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
         iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -11,15 +11,17 @@
 </head>
 <body>
     <script>
+        // 1. URL base de tu Google Apps Script
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec";
         
-        // Capturamos todos los parámetros de la URL (page, token, etc.)
+        // 2. Capturar los parámetros actuales de la URL de GitHub (ej: ?token=A1B2C3)
         const queryString = window.location.search;
         
-        // Construimos la URL final para el iframe
+        // 3. Construir la URL final para el iframe
         const finalUrl = googleScriptUrl + queryString;
         
-        document.write('<iframe src="' + finalUrl + '"></iframe>');
+        // 4. Crear el iframe dinámicamente
+        document.write('<iframe src="' + finalUrl + '" allow="camera; microphone; clipboard-read; clipboard-write"></iframe>');
     </script>
 </body>
 </html>
