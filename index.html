@@ -11,24 +11,23 @@
 </head>
 <body>
     <script>
+        // 1. URL base de tu Google Apps Script (Asegúrate de que sea la de la "Nueva Implementación")
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec";
         
-        // 1. Obtener token de la URL de GitHub
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get('token');
-
-        // 2. Crear el iframe pasando el token por la URL
+        // 2. Capturar el token de la URL de GitHub (ej: ?token=A1B2C3)
+        const queryString = window.location.search;
+        
+        // 3. Construir la URL final con los parámetros para el servidor de Google
+        const finalUrl = googleScriptUrl + queryString;
+        
+        // 4. Crear e inyectar el iframe
         const iframe = document.createElement('iframe');
-        iframe.src = googleScriptUrl + (token ? "?token=" + token : "");
-        iframe.id = "evaluacionIframe";
+        iframe.src = finalUrl;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.setAttribute("allow", "camera; microphone; clipboard-read; clipboard-write");
+        
         document.body.appendChild(iframe);
-
-        // 3. Por si acaso el iframe se "limpia", enviamos un mensaje cuando cargue
-        iframe.onload = function() {
-            if (token) {
-                iframe.contentWindow.postMessage({ type: 'SET_TOKEN', token: token }, '*');
-            }
-        };
     </script>
 </body>
 </html>
