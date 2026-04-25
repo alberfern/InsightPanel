@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Panel de Evaluación</title>
+    <title>InsightPanel</title>
     <style>
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
         iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -11,17 +11,24 @@
 </head>
 <body>
     <script>
-        // 1. URL base de tu Google Apps Script
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec";
         
-        // 2. Capturar los parámetros actuales de la URL de GitHub (ej: ?token=A1B2C3)
-        const queryString = window.location.search;
-        
-        // 3. Construir la URL final para el iframe
-        const finalUrl = googleScriptUrl + queryString;
-        
-        // 4. Crear el iframe dinámicamente
-        document.write('<iframe src="' + finalUrl + '" allow="camera; microphone; clipboard-read; clipboard-write"></iframe>');
+        // 1. Obtener token de la URL de GitHub
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+
+        // 2. Crear el iframe pasando el token por la URL
+        const iframe = document.createElement('iframe');
+        iframe.src = googleScriptUrl + (token ? "?token=" + token : "");
+        iframe.id = "evaluacionIframe";
+        document.body.appendChild(iframe);
+
+        // 3. Por si acaso el iframe se "limpia", enviamos un mensaje cuando cargue
+        iframe.onload = function() {
+            if (token) {
+                iframe.contentWindow.postMessage({ type: 'SET_TOKEN', token: token }, '*');
+            }
+        };
     </script>
 </body>
 </html>
