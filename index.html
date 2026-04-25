@@ -11,17 +11,14 @@
 </head>
 <body>
     <script>
-        // 1. Capturamos lo que escribiste en la URL después del "?"
-        const queryString = window.location.search;
-        
-        // 2. Tu URL base de Google Script
         const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec";
         
-        // 3. Creamos la URL final combinando ambas
-        // Si entras con ?page=empresa, se lo pegamos al link de Google
+        // Capturamos todos los parámetros de la URL (page, token, etc.)
+        const queryString = window.location.search;
+        
+        // Construimos la URL final para el iframe
         const finalUrl = googleScriptUrl + queryString;
         
-        // 4. Creamos el iframe dinámicamente
         document.write('<iframe src="' + finalUrl + '"></iframe>');
     </script>
 </body>
