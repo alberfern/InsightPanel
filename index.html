@@ -2,27 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Panel de Empresa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight Panel</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden; /* Evita doble scroll */
-        }
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; }
+        iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
-    <iframe src="https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec"></iframe>
+    <script>
+        // 1. Capturamos lo que escribiste en la URL después del "?"
+        const queryString = window.location.search;
+        
+        // 2. Tu URL base de Google Script
+        const googleScriptUrl = "https://script.google.com/macros/s/AKfycbyGgo19E2PZ-eWwbHDyEV0B3qRTw5LeZLIKy6rCigZQHUNzOX1Yb8NJ-BQIog3YVPFV/exec";
+        
+        // 3. Creamos la URL final combinando ambas
+        // Si entras con ?page=empresa, se lo pegamos al link de Google
+        const finalUrl = googleScriptUrl + queryString;
+        
+        // 4. Creamos el iframe dinámicamente
+        document.write('<iframe src="' + finalUrl + '"></iframe>');
+    </script>
 </body>
 </html>
